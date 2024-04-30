@@ -196,3 +196,4 @@ yarn-error.log
 
 # testing
 /coverage
+*.sqlite3
