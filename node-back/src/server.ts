@@ -1,9 +1,9 @@
 const express = require('express');
-import { Request, Response } from 'express';
+import { type Request, type Response } from 'express';
 const cors = require('cors');
 const helmet = require('helmet');
 
-const usersRouter = require('./routes/users-routes')
+import { routes } from './routes/routes'
 
 const server = express();
 
@@ -15,6 +15,6 @@ server.get('/', (req: Request, res: Response) => {
     res.send('Welcome to the node app server!!!')
 });
 
-server.use('/api/users', usersRouter)
+server.use('/api', routes)
 
 module.exports = server;

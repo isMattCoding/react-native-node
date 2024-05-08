@@ -1,13 +1,13 @@
-const database = require('../dbConfig');
+const user_database = require('../dbConfig');
 
 async function addUser(user: any) {
-  return await database('users').insert(user, ['id', 'username'])
+  return await user_database('users').insert(user, ['id', 'username'])
 }
 function findAllUsers() {
-  return database('users')
+  return user_database('users')
 }
 function findUserByUsername(username:string) {
-  return database('users').where({ username }).first()
+  return user_database('users').where({ username }).first()
 }
 
 module.exports = {
