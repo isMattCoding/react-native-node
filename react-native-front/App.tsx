@@ -3,11 +3,13 @@ import {NavigationContainer} from '@react-navigation/native';
 import {type NativeStackScreenProps, createNativeStackNavigator} from '@react-navigation/native-stack';
 import "./output.css"
 import { UserRegistrationScreen } from "./App/pages/authentication/UserRegistrationScreen";
+import { UserLoginScreen } from "./App/pages/authentication/UserLoginScreen";
 
 export type RootStackParamList = {
   Home: undefined, // undefined because you aren't passing any params to the home screen
   Profile: { name: string };
   Registration: undefined;
+  Login: undefined;
 };
 
 type HomeScreenNavigationProp = NativeStackScreenProps<
@@ -42,6 +44,10 @@ export default function App() {
         <Stack.Screen
           name="Registration"
           component={UserRegistrationScreen}
+        />
+        <Stack.Screen
+          name="Login"
+          component={UserLoginScreen}
         />
         <Stack.Screen
           name="Home"

@@ -1,6 +1,6 @@
 import React, { FC, ReactElement, useState } from "react";
 import { Pressable, Text, View } from "react-native";
-import { createUser } from "../../authentification";
+import { createUser } from "../../authentication";
 import { ErrorType } from "../../components/Alert";
 import { Alerts } from "../../components/Alerts";
 import { FormInput } from "../../components/FormInput";
@@ -87,7 +87,7 @@ export function UserRegistration({navigation, route}: RegistrationScreenNavigati
         <Text className="text-sm mt-6 text-center">
           Already have an account?
           <Pressable
-            onPress={()=>{}}
+            onPress={()=>{navigation.navigate("Login")}}
             className="text-blue-600 font-semibold hover:underline ml-1">
               Login here
           </Pressable>
