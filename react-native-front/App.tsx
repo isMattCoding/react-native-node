@@ -1,11 +1,13 @@
 import { Button, StyleSheet, Text } from "react-native";
 import {NavigationContainer} from '@react-navigation/native';
-import {NativeStackScreenProps, createNativeStackNavigator, type NativeStackNavigationProp} from '@react-navigation/native-stack';
-
+import {type NativeStackScreenProps, createNativeStackNavigator} from '@react-navigation/native-stack';
+import "./output.css"
+import { UserRegistrationScreen } from "./App/pages/authentication/UserRegistrationScreen";
 
 type RootStackParamList = {
   Home: undefined, // undefined because you aren't passing any params to the home screen
   Profile: { name: string };
+  Registration: undefined;
 };
 
 type HomeScreenNavigationProp = NativeStackScreenProps<
@@ -15,8 +17,7 @@ type HomeScreenNavigationProp = NativeStackScreenProps<
 
 type ProfileScreenNavigationProp = NativeStackScreenProps<
   RootStackParamList,
-  'Profile'
->;
+  'Profile'>;
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -38,6 +39,10 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen
+          name="Registration"
+          component={UserRegistrationScreen}
+        />
         <Stack.Screen
           name="Home"
           component={HomeScreen}
