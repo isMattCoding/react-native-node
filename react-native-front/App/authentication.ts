@@ -9,7 +9,7 @@ interface AuthenticationErrorResponse extends ErrorType {
   success: false;
 }
 
-type AuthenticationResponse = AuthenticationSuccessResponse | AuthenticationErrorResponse;
+export type AuthenticationResponse = AuthenticationSuccessResponse | AuthenticationErrorResponse;
 
 export function createUser(
   username:string,
@@ -21,7 +21,7 @@ export function createUser(
   };
 
   return new Promise((resolve, reject) => {
-    fetch('http://localhost:3000/api/users/register', {
+    fetch('http://localhost:5001/api/users/register', {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ export function login(
   };
 
   return new Promise((resolve, reject) => {
-    fetch('http://localhost:3000/api/users/login', {
+    fetch('http://localhost:5001/api/users/login', {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',
