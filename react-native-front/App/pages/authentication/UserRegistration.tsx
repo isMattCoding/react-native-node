@@ -19,15 +19,16 @@ export const UserRegistration: FC<{}> = ({}): ReactElement => {
       try {
         const response = await createUser(username, password);
 
-      } catch (error) {
-        setErrors(errors => [...errors, {
-          message: "An unexpected error occurred.",
-          type: "error",
-          id: "unexpectedError"
+      } catch (e) {
+        const error = e as ErrorType;
+        setErrors(errors => [{
+          message: error.message ?? "Unexpected error occurred.",
+          type: error.type ?? "error",
+          id: error.id ?? "unexpectedError"
         }]);
       }
     } else {
-      setErrors(errors => [...errors, {
+      setErrors(errors => [{
         message: "The passwords do not match.",
         type: "error",
         id: "registrationCPassword"

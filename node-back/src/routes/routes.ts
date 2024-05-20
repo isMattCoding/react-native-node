@@ -32,7 +32,11 @@ export const routes: Router = (() => {
     const { username, password } = credentials;
 
     if(!(username && password)) {
-      return res.status(400).json({message: "Username and password required"})
+      return res.status(400).json({
+        message: "Username and password required",
+        type: "error",
+        id: !username ? "registrationUsername" : "registrationPassword"
+      })
     }
 
     const hash = bcrypt.hashSync(credentials.password, 12)
@@ -44,7 +48,11 @@ export const routes: Router = (() => {
       })
       .catch((error: NodeJS.ErrnoException)=> {
         if(error.errno == 19) {
-          res.status(400).json({message: "Username already taken"})
+          res.status(400).json({
+            message: "Username already taken",
+            type: "error",
+            id: "registrationUsername",
+          })
         } else {
           res.status(500).json(error)
         }

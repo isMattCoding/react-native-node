@@ -24,7 +24,7 @@ export function createUser(
     .then(responseData => Promise.reject(responseData))
     .catch(error => {
       console.log(error);
-      reject({error});
+      reject(error);
     });
   })
 }

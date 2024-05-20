@@ -559,20 +559,16 @@ video {
   margin-left: 4px;
 }
 
-.mt-6 {
-  margin-top: 24px;
-}
-
 .mr-4 {
   margin-right: 16px;
 }
 
-.mt-1 {
-  margin-top: 4px;
-}
-
 .mt-2 {
   margin-top: 8px;
+}
+
+.mt-6 {
+  margin-top: 24px;
 }
 
 .block {
@@ -623,20 +619,12 @@ video {
   background-color: #3b82f6;
 }
 
-.bg-white {
-  background-color: #fff;
-}
-
 .bg-red-100 {
   background-color: #fee2e2;
 }
 
-.bg-gray-300 {
-  background-color: #d1d5db;
-}
-
-.bg-red-300 {
-  background-color: #fca5a5;
+.bg-white {
+  background-color: #fff;
 }
 
 .p-4 {
@@ -670,12 +658,12 @@ video {
   font-family: sans-serif;
 }
 
-.font-semibold {
-  font-weight: 600;
-}
-
 .font-bold {
   font-weight: 700;
+}
+
+.font-semibold {
+  font-weight: 600;
 }
 
 .capitalize {
@@ -690,16 +678,16 @@ video {
   color: #2563eb;
 }
 
-.text-white {
-  color: #fff;
+.text-red-600 {
+  color: #dc2626;
 }
 
 .text-red-800 {
   color: #991b1b;
 }
 
-.text-red-600 {
-  color: #dc2626;
+.text-white {
+  color: #fff;
 }
 
 .outline-blue-500 {
@@ -716,21 +704,6 @@ video {
   }
 }
 
-.text-sm {
-  font-size: 14px;
-  line-height: 20px;
-}
-
-.text-lg {
-  font-size: 18px;
-  line-height: 28px;
-}
-
-.text-xl {
-  font-size: 20px;
-  line-height: 28px;
-}
-
 .text-2xl {
   font-size: 24px;
   line-height: 32px;
@@ -739,6 +712,11 @@ video {
 .text-base {
   font-size: 16px;
   line-height: 24px;
+}
+
+.text-sm {
+  font-size: 14px;
+  line-height: 20px;
 }
 
 .hover\:bg-blue-600::hover {
@@ -771,9 +749,5 @@ video {
 }
 
 .\[\&\>\*\:not\(\:first-child\)\]\:mt-8>*:not(:first-child) {
-  margin-top: 32px;
-}
-
-.\[\&\>\*\]\:mt-8>* {
   margin-top: 32px;
 }
