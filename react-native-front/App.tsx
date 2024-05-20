@@ -4,7 +4,7 @@ import {type NativeStackScreenProps, createNativeStackNavigator} from '@react-na
 import "./output.css"
 import { UserRegistrationScreen } from "./App/pages/authentication/UserRegistrationScreen";
 
-type RootStackParamList = {
+export type RootStackParamList = {
   Home: undefined, // undefined because you aren't passing any params to the home screen
   Profile: { name: string };
   Registration: undefined;

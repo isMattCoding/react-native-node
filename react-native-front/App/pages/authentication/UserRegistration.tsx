@@ -1,11 +1,12 @@
 import React, { FC, ReactElement, useState } from "react";
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import { createUser } from "../../authentification";
 import { ErrorType } from "../../components/Alert";
 import { Alerts } from "../../components/Alerts";
 import { FormInput } from "../../components/FormInput";
+import { RegistrationScreenNavigationProp } from "./UserRegistrationScreen";
 
-export const UserRegistration: FC<{}> = ({}): ReactElement => {
+export function UserRegistration({navigation, route}: RegistrationScreenNavigationProp) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [cPassword, setCPassword] = useState("");
@@ -18,17 +19,20 @@ export const UserRegistration: FC<{}> = ({}): ReactElement => {
 
       try {
         const response = await createUser(username, password);
+        if(response.success) {
+          navigation.navigate('Home')
+        }
 
       } catch (e) {
         const error = e as ErrorType;
-        setErrors(errors => [{
+        setErrors([{
           message: error.message ?? "Unexpected error occurred.",
           type: error.type ?? "error",
           id: error.id ?? "unexpectedError"
         }]);
       }
     } else {
-      setErrors(errors => [{
+      setErrors([{
         message: "The passwords do not match.",
         type: "error",
         id: "registrationCPassword"
@@ -92,11 +96,3 @@ export const UserRegistration: FC<{}> = ({}): ReactElement => {
     </form>
   );
 };
-
-const styles = StyleSheet.create({
-  input: {
-    height: 40,
-    marginBottom: 10,
-    backgroundColor: '#fff',
-  },
-});
