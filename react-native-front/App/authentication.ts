@@ -21,7 +21,7 @@ export function createUser(
   };
 
   return new Promise((resolve, reject) => {
-    fetch('http://localhost:5001/api/users/register', {
+    fetch('https://3ff0-84-6-101-200.ngrok-free.app/api/users/register', {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',
@@ -36,6 +36,7 @@ export function createUser(
     })
     .then(responseData => Promise.reject(responseData))
     .catch(error => {
+      console.log(error)
       reject({...error, success: false,});
     });
   })
@@ -51,7 +52,7 @@ export function login(
   };
 
   return new Promise((resolve, reject) => {
-    fetch('http://localhost:5001/api/users/login', {
+    fetch('https://3ff0-84-6-101-200.ngrok-free.app/api/users/login', {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',
@@ -60,6 +61,7 @@ export function login(
     })
     .then(response => {
       if(response.ok) {
+        console.log(response.json().then(data => data))
         resolve({success: true, response: response.json()})
       }
       return response.json()

@@ -41,8 +41,8 @@ export function UserRegistration({navigation, route}: RegistrationScreenNavigati
   }
 
   return (
-    <form>
-      <View className="flex space-y-8 [&>*:not(:first-child)]:mt-8" id="toto">
+    <View>
+      <View className="flex [&>*:not(:first-child)]:mt-8" id="toto">
         <Text className="text-2xl">Registration</Text>
         <Alerts errors={errors} />
         <FormInput
@@ -78,21 +78,21 @@ export function UserRegistration({navigation, route}: RegistrationScreenNavigati
           secureTextEntry={true}
         />
         <View className="!mt-10">
-          <Pressable onPress={onSubmit}>
-            <Text className="w-full py-3 px-4 text-sm font-semibold rounded text-white bg-blue-500 hover:bg-blue-600 focus:outline-none">
-              Create an account
-            </Text>
-          </Pressable>
+          <Text className="w-full py-3 px-4 text-sm font-semibold rounded text-white bg-blue-500 hover:bg-blue-600 focus:outline-none">
+            <Pressable onPress={onSubmit}>
+              <Text>Create an account</Text>
+            </Pressable>
+          </Text>
         </View>
         <Text className="text-sm mt-6 text-center">
           Already have an account?
           <Pressable
             onPress={()=>{navigation.navigate("Login")}}
             className="text-blue-600 font-semibold hover:underline ml-1">
-              Login here
+              <Text>Login here</Text>
           </Pressable>
         </Text>
       </View>
-    </form>
+    </View>
   );
 };

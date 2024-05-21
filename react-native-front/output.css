@@ -698,12 +698,6 @@ video {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
-.space-y-8 {
-  @selector (> *:not(:first-child)) {
-    margin-top: 32px;
-  }
-}
-
 .text-2xl {
   font-size: 24px;
   line-height: 32px;

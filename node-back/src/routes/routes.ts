@@ -3,7 +3,7 @@ import { type Request, type Response, type Router } from 'express';
 const userHelpers = require('../helpers/user-helpers')
 const hotelsHelpers = require('../helpers/hotels-helpers')
 const bcrypt = require('bcryptjs');
-
+const jwt = require('jsonwebtoken');
 
 type UserType = {
   id: number;
@@ -44,7 +44,18 @@ export const routes: Router = (() => {
 
     userHelpers.addUser(credentials)
       .then((user: UserType) => {
-        res.status(200).json(user)
+        let jwtSecretKey = process.env.JWT_SECRET_KEY;
+        let data = {
+            time: Date(),
+            username: req.headers['username'],
+        }
+        const options = {
+          expiresIn: "7d"
+        }
+
+        const token = jwt.sign(data, jwtSecretKey, options);
+        res.status(200).json({ message: `Welcome ${user.username}`, token, authenticated: true})
+        res.status(200).json({user, token, authenticated: true})
       })
       .catch((error: NodeJS.ErrnoException)=> {
         if(error.errno == 19) {
@@ -61,18 +72,37 @@ export const routes: Router = (() => {
 
   router.post('/users/login', (req: Request, res: Response) => {
     const credentials = req.body;
+    console.log('credentials', credentials)
     const { username, password } = credentials;
 
     if(!(username && password)) {
-      return res.status(400).json({message: "Username and password required"})
+      return res.status(400).json({
+        message: "Username and password required",
+        type: "error",
+        id: !username ? "loginUsername" : "loginPassword"
+      })
     }
 
     userHelpers.findUserByUsername(username)
       .then((user: UserType) => {
         if (user && bcrypt.compareSync(password, user.password)) {
-          res.status(200).json({ message: `Welcome ${user.username}`})
+          let jwtSecretKey = process.env.JWT_SECRET_KEY;
+          let data = {
+              time: Date(),
+              username: req.headers['username'],
+          }
+          const options = {
+            expiresIn: "7d"
+          }
+
+          const token = jwt.sign(data, jwtSecretKey, options);
+          res.status(200).json({ message: `Welcome ${user.username}`, token, authenticated: true})
         } else {
-          res.status(401).json({ message: "Invalid credentials"})
+          res.status(401).json({
+            message: "Invalid credentials",
+            type: "error",
+            id: "loginPassword"
+          })
         }
       })
       .catch((error: NodeJS.ErrnoException) => {
@@ -81,13 +111,25 @@ export const routes: Router = (() => {
   })
 
   router.get('/users/', (req: Request, res: Response) => {
-    userHelpers.findAllUsers()
-      .then((users: UserType[]) => {
-        res.status(200).json(users)
-      })
-      .catch((error: NodeJS.ErrnoException) => {
-        res.status(500).json({message: 'unable to retrieve users'})
-      })
+    let tokenHeaderKey = process.env.TOKEN_HEADER_KEY;
+    let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+    try {
+      const token = req.header(tokenHeaderKey);
+
+      const verified = jwt.verify(token, jwtSecretKey);
+      if (verified) {
+        userHelpers.findAllUsers()
+          .then((users: UserType[]) => {
+            res.status(200).json(users)
+          })
+          .catch((error: NodeJS.ErrnoException) => {
+            res.status(500).json({message: 'unable to retrieve users'})
+          })
+        }
+      } catch (error) {
+      return res.status(401).send(error);
+    }
   })
 
   router.get('/users/:username', (req: Request, res: Response) => {
