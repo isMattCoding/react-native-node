@@ -36,7 +36,6 @@ export function createUser(
     })
     .then(responseData => Promise.reject(responseData))
     .catch(error => {
-      console.log(error)
       reject({...error, success: false,});
     });
   })
@@ -61,7 +60,6 @@ export function login(
     })
     .then(response => {
       if(response.ok) {
-        console.log(response.json().then(data => data))
         resolve({success: true, response: response.json()})
       }
       return response.json()

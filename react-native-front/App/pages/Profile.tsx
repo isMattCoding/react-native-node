@@ -16,10 +16,5 @@ export const ProfileScreen = ({navigation, route}: ProfileScreenNavigationProp) 
 
   return <View>
       <Text>This is {route.params.name}'s profile</Text>
-      <Pressable onPress={()=>console.log(
-          'secure', SecureStore.getItemAsync(TOKEN_KEY),
-          'asyncstorage', AsyncStorage.getItem(TOKEN_KEY),
-          'auth', authState
-        )}><Text>toto</Text></Pressable>
     </View>
 };

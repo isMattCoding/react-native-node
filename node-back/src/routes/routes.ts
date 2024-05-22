@@ -52,7 +52,6 @@ export const routes: Router = (() => {
         const jwtSecretKey = process.env.JWT_SECRET_KEY;
         const username = req.headers['username'];
         const token = getJWTToken(jwtSecretKey, username)
-        console.log(user, 'created')
         res.status(200).json({user, token, authenticated: true})
       })
       .catch((error: NodeJS.ErrnoException)=> {

@@ -68,15 +68,6 @@ export function UserLogin({navigation, route}: LoginScreenNavigationProp) {
           </Pressable>
         </Text>
       </View>
-      <Pressable
-        onPress={()=>console.log(
-          'secure', SecureStore.getItemAsync(TOKEN_KEY),
-          'asyncstorage', AsyncStorage.getItem(TOKEN_KEY),
-          'auth', authState
-        )}
-      >
-        <Text>toto</Text>
-      </Pressable>
     </View>
   );
 };

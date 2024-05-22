@@ -28,7 +28,6 @@ export function UserRegistration({navigation, route}: RegistrationScreenNavigati
           id: result.error.id
         }])
       } else {
-        console.log('we got here')
         await onLogin!(username, password);
       }
     } else {
