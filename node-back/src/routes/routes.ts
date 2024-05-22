@@ -31,12 +31,9 @@ export const routes: Router = (() => {
     const credentials = req.body;
     const { username, password } = credentials;
 
-    if(!(username && password)) {
-      return res.status(400).json({
-        message: "Username and password required",
-        type: "error",
-        id: !username ? "registrationUsername" : "registrationPassword"
-      })
+    const noUsernameOrPassword = userHelpers.checkUsernameAndPassword(username, password, "registration")
+    if (noUsernameOrPassword) {
+      return res.status(400).json(noUsernameOrPassword)
     }
 
     const hash = bcrypt.hashSync(credentials.password, 12)
@@ -71,16 +68,13 @@ export const routes: Router = (() => {
   })
 
   router.post('/users/login', (req: Request, res: Response) => {
+    console.log(req)
     const credentials = req.body;
-    console.log('credentials', credentials)
     const { username, password } = credentials;
 
-    if(!(username && password)) {
-      return res.status(400).json({
-        message: "Username and password required",
-        type: "error",
-        id: !username ? "loginUsername" : "loginPassword"
-      })
+    const noUsernameOrPassword = userHelpers.checkUsernameAndPassword(username, password, "login")
+    if (noUsernameOrPassword) {
+      return res.status(400).json(noUsernameOrPassword)
     }
 
     userHelpers.findUserByUsername(username)
