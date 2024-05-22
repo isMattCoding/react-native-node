@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, StatusBar, Text, View} from 'react-native';
+import { SafeAreaView, StatusBar, View} from 'react-native';
 import {UserLogin} from './UserLogin';
 import { RootStackParamList } from "../../../App";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";

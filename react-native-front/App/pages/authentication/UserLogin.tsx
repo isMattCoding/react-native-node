@@ -5,15 +5,13 @@ import { Alerts } from "../../components/Alerts";
 import { FormInput } from "../../components/FormInput";
 import { LoginScreenNavigationProp } from "./UserLoginScreen";
 import { useAuth } from "../../providers/AuthContext";
-import * as SecureStore from 'expo-secure-store';
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const TOKEN_KEY = 'my-jwt';
 export function UserLogin({navigation, route}: LoginScreenNavigationProp) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<ErrorType[]>([])
-  const { authState, onLogOut, onLogin } = useAuth();
+  const { onLogin } = useAuth();
 
   const login = async () => {
     const result = await onLogin!(username, password);

@@ -1,8 +1,6 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../App";
-import { Pressable, Text, View } from "react-native";
-import * as SecureStore from 'expo-secure-store';
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Text, View } from "react-native";
 import { useAuth } from "../providers/AuthContext";
 const TOKEN_KEY = 'my-jwt';
 

@@ -1,5 +1,4 @@
-import { Button, StyleSheet, Text } from "react-native";
-import {type NativeStackScreenProps, createNativeStackNavigator} from '@react-navigation/native-stack';
+import { StyleSheet } from "react-native";
 import "./output.css"
 import AuthProvider, { useAuth } from "./App/providers/AuthContext";
 import { Layout } from "./App/_Layout";

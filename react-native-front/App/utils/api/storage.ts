@@ -4,16 +4,16 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const storageUtil = {
   setItem: async (k: string, v: string) => {
-    if (Platform.OS === 'web') { // web
+    if (Platform.OS === 'web') {
       await AsyncStorage.setItem(k, v);
-    } else { // mobile
-      await SecureStore.setItemAsync(k, v.toString()); // v must be string,
+    } else {
+      await SecureStore.setItemAsync(k, v.toString());
     }
   },
   getItem: async (k: string) => {
-    if (Platform.OS === 'web') { // web
+    if (Platform.OS === 'web') {
       return await AsyncStorage.getItem(k);
-    } else { // mobile
+    } else {
       return await SecureStore.getItemAsync(k);
     }
   }
