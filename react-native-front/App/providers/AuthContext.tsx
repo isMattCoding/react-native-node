@@ -34,8 +34,6 @@ const AuthProvider = ({children}: PropsWithChildren) => {
   );
 
   useEffect(() => {
-    console.log('secure', SecureStore.getItemAsync(TOKEN_KEY))
-    console.log('react-storage', AsyncStorage.getItem(TOKEN_KEY))
     const loadToken = async () => {
       const token = Platform.OS === 'web' ? (
         await AsyncStorage.getItem(TOKEN_KEY)
@@ -43,7 +41,6 @@ const AuthProvider = ({children}: PropsWithChildren) => {
         await SecureStore.getItemAsync(TOKEN_KEY)
       )
 
-      console.log("stored", token)
       if (token) {
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         setAuthState({
@@ -59,16 +56,16 @@ const AuthProvider = ({children}: PropsWithChildren) => {
     try {
       return await axios.post(`${API_URL}/api/users/register`, {username, password})
     } catch (e) {
-      return {error: true, msg: (e as any).response.data.msg}
+      if((e as any).response) {
+        return {error: (e as any).response.data, success: false}
+      }
+      return e;
     }
   }
 
   const login = async (username: string, password: string) => {
     try {
-      console.log('we are in the request')
-      console.log(username, password)
       const result = await axios.post(`${API_URL}/api/users/login`, {username, password})
-      console.log('result', result)
       setAuthState({
         token: result.data.token,
         authenticated: true
@@ -82,7 +79,6 @@ const AuthProvider = ({children}: PropsWithChildren) => {
         await SecureStore.setItemAsync(TOKEN_KEY, result.data.token)
       }
 
-
       return {success: true, response: result.data};
     } catch (e) {
       if((e as any).response) {
@@ -93,7 +89,6 @@ const AuthProvider = ({children}: PropsWithChildren) => {
   }
 
   const logout = async () => {
-    console.log('hi')
     if (Platform.OS === 'web') {
       await AsyncStorage.removeItem(TOKEN_KEY)
     } else {

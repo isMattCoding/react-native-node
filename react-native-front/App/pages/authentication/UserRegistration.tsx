@@ -1,35 +1,35 @@
-import React, { FC, ReactElement, useState } from "react";
+import React, { useState } from "react";
 import { Pressable, Text, View } from "react-native";
-import { createUser } from "../../authentication";
 import { ErrorType } from "../../components/Alert";
 import { Alerts } from "../../components/Alerts";
 import { FormInput } from "../../components/FormInput";
 import { RegistrationScreenNavigationProp } from "./UserRegistrationScreen";
+import { useAuth } from "../../providers/AuthContext";
+
 
 export function UserRegistration({navigation, route}: RegistrationScreenNavigationProp) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [cPassword, setCPassword] = useState("");
   const [errors, setErrors] = useState<ErrorType[]>([])
+    const { onLogin, onRegister } = useAuth();
 
-  async function onSubmit() {
+
+  async function register() {
     if (password === cPassword) {
 
       setErrors(errors => errors.filter(error => error.id !== 'registrationCPassword'));
 
-      try {
-        const response = await createUser(username, password);
-        if(response.success) {
-          navigation.navigate('Home')
-        }
-
-      } catch (e) {
-        const error = e as ErrorType;
+      const result = await onRegister!(username, password);
+      if (result && result.error) {
         setErrors([{
-          message: error.message ?? "Unexpected error occurred.",
-          type: error.type ?? "error",
-          id: error.id ?? "unexpectedError"
-        }]);
+          message: result.error.message,
+          type: result.error.type,
+          id: result.error.id
+        }])
+      } else {
+        console.log('we got here')
+        await onLogin!(username, password);
       }
     } else {
       setErrors([{
@@ -79,7 +79,7 @@ export function UserRegistration({navigation, route}: RegistrationScreenNavigati
         />
         <View className="!mt-10">
           <Text className="w-full py-3 px-4 text-sm font-semibold rounded text-white bg-blue-500 hover:bg-blue-600 focus:outline-none">
-            <Pressable onPress={onSubmit}>
+            <Pressable onPress={register}>
               <Text>Create an account</Text>
             </Pressable>
           </Text>

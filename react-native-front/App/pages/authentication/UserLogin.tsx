@@ -16,16 +16,13 @@ export function UserLogin({navigation, route}: LoginScreenNavigationProp) {
   const { authState, onLogOut, onLogin } = useAuth();
 
   const login = async () => {
-    console.log('hi')
     const result = await onLogin!(username, password);
-    console.log('result', result)
     if (result && result.error) {
       setErrors([{
         message: result.error.message,
         type: result.error.type,
         id: result.error.id
       }])
-      console.log('result.msg', result.msg, result);
     }
   }
 

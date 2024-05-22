@@ -15,7 +15,6 @@ import { ProfileScreen } from './pages/Profile';
 
 export const Layout = () => {
   const { authState, onLogOut } = useAuth();
-  console.log(authState)
 
   return (
     <NavigationContainer>
@@ -30,16 +29,18 @@ export const Layout = () => {
               }}
             />
           ) : (
-            <Stack.Screen
-              name="Login"
-              component={UserLoginScreen}
-            />
+            <>
+              <Stack.Screen
+                name="Login"
+                component={UserLoginScreen}
+              />
+              <Stack.Screen
+                name="Registration"
+                component={UserRegistrationScreen}
+              />
+            </>
           )
         }
-        <Stack.Screen
-          name="Registration"
-          component={UserRegistrationScreen}
-        />
         <Stack.Screen name="Profile" component={ProfileScreen} />
       </Stack.Navigator>
     </NavigationContainer>
