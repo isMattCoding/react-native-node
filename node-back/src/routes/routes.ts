@@ -24,6 +24,14 @@ type UpgradeType = {
   type: string;
 }
 
+const {
+  addUser,
+  findAllUsers,
+  findUserByUsername,
+  checkUsernameAndPassword,
+  getJWTToken
+} = userHelpers;
+
 export const routes: Router = (() => {
   const router = express.Router();
 
@@ -31,7 +39,7 @@ export const routes: Router = (() => {
     const credentials = req.body;
     const { username, password } = credentials;
 
-    const noUsernameOrPassword = userHelpers.checkUsernameAndPassword(username, password, "registration")
+    const noUsernameOrPassword = checkUsernameAndPassword(username, password, "registration")
     if (noUsernameOrPassword) {
       return res.status(400).json(noUsernameOrPassword)
     }
@@ -39,18 +47,12 @@ export const routes: Router = (() => {
     const hash = bcrypt.hashSync(credentials.password, 12)
     credentials.password = hash
 
-    userHelpers.addUser(credentials)
+    addUser(credentials)
       .then((user: UserType) => {
-        let jwtSecretKey = process.env.JWT_SECRET_KEY;
-        let data = {
-            time: Date(),
-            username: req.headers['username'],
-        }
-        const options = {
-          expiresIn: "7d"
-        }
+        const jwtSecretKey = process.env.JWT_SECRET_KEY;
+        const username = req.headers['username'];
+        const token = getJWTToken(jwtSecretKey, username)
 
-        const token = jwt.sign(data, jwtSecretKey, options);
         res.status(200).json({ message: `Welcome ${user.username}`, token, authenticated: true})
         res.status(200).json({user, token, authenticated: true})
       })
@@ -68,28 +70,20 @@ export const routes: Router = (() => {
   })
 
   router.post('/users/login', (req: Request, res: Response) => {
-    console.log(req)
     const credentials = req.body;
     const { username, password } = credentials;
 
-    const noUsernameOrPassword = userHelpers.checkUsernameAndPassword(username, password, "login")
+    const noUsernameOrPassword = checkUsernameAndPassword(username, password, "login")
     if (noUsernameOrPassword) {
       return res.status(400).json(noUsernameOrPassword)
     }
 
-    userHelpers.findUserByUsername(username)
+    findUserByUsername(username)
       .then((user: UserType) => {
         if (user && bcrypt.compareSync(password, user.password)) {
-          let jwtSecretKey = process.env.JWT_SECRET_KEY;
-          let data = {
-              time: Date(),
-              username: req.headers['username'],
-          }
-          const options = {
-            expiresIn: "7d"
-          }
-
-          const token = jwt.sign(data, jwtSecretKey, options);
+          const jwtSecretKey = process.env.JWT_SECRET_KEY;
+          const username = req.headers['username'];
+          const token = getJWTToken(jwtSecretKey, username)
           res.status(200).json({ message: `Welcome ${user.username}`, token, authenticated: true})
         } else {
           res.status(401).json({
@@ -113,7 +107,7 @@ export const routes: Router = (() => {
 
       const verified = jwt.verify(token, jwtSecretKey);
       if (verified) {
-        userHelpers.findAllUsers()
+        findAllUsers()
           .then((users: UserType[]) => {
             res.status(200).json(users)
           })
@@ -128,7 +122,7 @@ export const routes: Router = (() => {
 
   router.get('/users/:username', (req: Request, res: Response) => {
     const { username } = req.params;
-    userHelpers.findUserByUsername(username)
+    findUserByUsername(username)
       .then((user: UserType) => {
         res.status(200).json(user)
       })

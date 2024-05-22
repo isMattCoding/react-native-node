@@ -1,4 +1,5 @@
 const user_database = require('../dbConfig');
+const jwt = require('jsonwebtoken');
 
 async function addUser(user: any) {
   return await user_database('users').insert(user, ['id', 'username'])
@@ -19,10 +20,23 @@ function checkUsernameAndPassword(username:string, password:string, type:"regist
   }
   return;
 }
+function getJWTToken(key:string, username: string |string[]) {
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+  let data = {
+      time: Date(),
+      username: username,
+  }
+  const options = {
+    expiresIn: "7d"
+  }
+
+  return jwt.sign(data, jwtSecretKey, options);
+}
 
 module.exports = {
   addUser,
   findAllUsers,
   findUserByUsername,
-  checkUsernameAndPassword
+  checkUsernameAndPassword,
+  getJWTToken
 }
