@@ -77,8 +77,8 @@ export function UserRegistration({navigation, route}: RegistrationScreenNavigati
           secureTextEntry={true}
         />
         <View className="!mt-10">
-          <Text className="w-full py-3 px-4 text-sm font-semibold rounded text-white bg-blue-500 hover:bg-blue-600 focus:outline-none">
-            <Pressable onPress={register}>
+          <Text>
+            <Pressable className="w-full py-3 px-4 text-sm font-semibold rounded text-white bg-blue-500 hover:bg-blue-600 focus:outline-none" onPress={register}>
               <Text>Create an account</Text>
             </Pressable>
           </Text>

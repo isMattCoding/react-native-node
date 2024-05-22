@@ -51,8 +51,8 @@ export function UserLogin({navigation, route}: LoginScreenNavigationProp) {
           secureTextEntry={true}
         />
         <View className="!mt-10">
-          <Text className="w-full py-3 px-4 text-sm font-semibold rounded text-white bg-blue-500 hover:bg-blue-600 focus:outline-none">
-            <Pressable onPress={login}>
+          <Text>
+            <Pressable className="w-full py-3 px-4 text-sm font-semibold rounded text-white bg-blue-500 hover:bg-blue-600 focus:outline-none" onPress={login}>
               <Text>Login</Text>
             </Pressable>
           </Text>

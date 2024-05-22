@@ -24,12 +24,14 @@ export const useAuth = () => {
 type AuthStateType = {
   token: string | null,
   authenticated: boolean | null,
+  loaded: boolean
 }
 const AuthProvider = ({children}: PropsWithChildren) => {
   const [authState, setAuthState] = useState<AuthStateType>(
     {
       token: null,
-      authenticated: null
+      authenticated: null,
+      loaded: false
     }
   );
 
@@ -45,7 +47,14 @@ const AuthProvider = ({children}: PropsWithChildren) => {
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         setAuthState({
           token: token,
-          authenticated:true
+          authenticated:true,
+          loaded: true
+        })
+      } else {
+        setAuthState({
+          token: token,
+          authenticated:false,
+          loaded: true
         })
       }
     }
@@ -68,7 +77,8 @@ const AuthProvider = ({children}: PropsWithChildren) => {
       const result = await axios.post(`${API_URL}/api/users/login`, {username, password})
       setAuthState({
         token: result.data.token,
-        authenticated: true
+        authenticated: true,
+        loaded: true
       })
 
       axios.defaults.headers.common['Authorization'] = `Bearer ${result.data.token}`
@@ -99,7 +109,8 @@ const AuthProvider = ({children}: PropsWithChildren) => {
 
     setAuthState({
       token: null,
-      authenticated: false
+      authenticated: false,
+      loaded: true
     })
   }
 

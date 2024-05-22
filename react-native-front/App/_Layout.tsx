@@ -15,7 +15,7 @@ import { ProfileScreen } from './pages/Profile';
 
 export const Layout = () => {
   const { authState, onLogOut } = useAuth();
-  if (authState?.authenticated === null) return <>toto</>
+  if (authState?.loaded === false) return <>toto</>
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -24,8 +24,8 @@ export const Layout = () => {
               name="Home"
               component={HomeScreen}
               options={{
-                title: 'Welcome',
-                headerRight: () => <Pressable onPress={onLogOut}><Text>"Sign Out"</Text></Pressable>,
+                title: 'Home',
+                headerRight: () => <Pressable className="text-black"onPress={onLogOut}><Text>Sign Out</Text></Pressable>,
               }}
             />
           ) : (
