@@ -1,6 +1,5 @@
-import { StyleSheet } from "react-native";
 import "./output.css"
-import AuthProvider, { useAuth } from "./App/providers/AuthContext";
+import AuthProvider from "./App/providers/AuthContext";
 import { Layout } from "./App/_Layout";
 
 export type RootStackParamList = {
@@ -18,12 +17,3 @@ export default function App() {
     </AuthProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

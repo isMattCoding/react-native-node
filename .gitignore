@@ -198,4 +198,4 @@ yarn-error.log
 /coverage
 *.sqlite3
 
-./**/output.css
+**/*/output.css
