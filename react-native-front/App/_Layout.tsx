@@ -25,7 +25,7 @@ export const Layout = () => {
               component={HomeScreen}
               options={{
                 title: 'Home',
-                headerRight: () => <Pressable className="text-black"onPress={onLogOut}><Text>Sign Out</Text></Pressable>,
+                headerRight: () => <Pressable className="text-black mr-2"onPress={onLogOut}><Text>Sign Out</Text></Pressable>,
               }}
             />
           ) : (
