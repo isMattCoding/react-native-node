@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start-node": "ts-node node-back/src/index.ts",
     "start-react-native": "cd react-native-front && yarn start",
+    "react-native-tailwind": "cd react-native-front && yarn tailwind",
     "migrate": "knex migrate:latest"
   },
   "keywords": [],
