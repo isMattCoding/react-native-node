@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Pressable, Text, View } from "react-native";
+import { Pressable, Text, TouchableOpacity, View } from "react-native";
 import { ErrorType } from "../../components/Alert";
 import { Alerts } from "../../components/Alerts";
 import { FormInput } from "../../components/FormInput";
@@ -27,7 +27,7 @@ export function UserLogin({navigation, route}: LoginScreenNavigationProp) {
   return (
     <View>
       <View className="flex [&>*:not(:first-child)]:mt-8" id="toto">
-        <Text className="text-2xl">Login</Text>
+        <Text className="text-2xl mb-8 sm:mb-0">Login</Text>
         <Alerts errors={errors} />
         <FormInput
           placeholder="Username"
@@ -57,14 +57,12 @@ export function UserLogin({navigation, route}: LoginScreenNavigationProp) {
             </Pressable>
           </Text>
         </View>
-        <Text className="text-sm mt-6 text-center">
-          Don't have an account?
-          <Pressable
-            onPress={()=>{navigation.navigate("Registration")}}
-            className="text-blue-600 font-semibold hover:underline ml-1">
-              <Text>Register here</Text>
-          </Pressable>
-        </Text>
+        <View className="flex-row mt-5 justify-center">
+          <Text className="mr-2">Don't have an account?</Text>
+          <TouchableOpacity onPress={()=>{navigation.navigate("Registration")}}>
+            <Text className="text-blue-600 font-semibold hover:underline align-bottom">Register here</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );

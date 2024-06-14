@@ -15,7 +15,7 @@ import { ProfileScreen } from './pages/Profile';
 
 export const Layout = () => {
   const { authState, onLogOut } = useAuth();
-  if (authState?.loaded === false) return <>toto</>
+  if (authState?.loaded === false) return;
   return (
     <NavigationContainer>
       <Stack.Navigator>
