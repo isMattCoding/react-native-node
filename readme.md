@@ -31,7 +31,7 @@ This repository serves as a template for creating a React Native app with a Node
     ```
 
 2. **Install dependencies**
-(Dependencies for Node and React native are installed, and Tailwind is initialised)
+(Dependencies for Node and React native are installed, Tailwind is initialised and the database migrations are run)
 
     ```sh
     yarn install-all
@@ -47,6 +47,12 @@ This repository serves as a template for creating a React Native app with a Node
 4. **That's it!**
 
 Open up a browser to `localhost:8081` to see the app up and running!
+
+## Features
+
+* **Tailwind**: Create responsive clean designs using [TailwindCSS](https://tailwindcss.com/docs/responsive-design)
+* **Knex**: Manage SQL queries easily with [Knex](https://knexjs.org/guide/)
+* **Authentication**: Built-in User table with [JWT authentication](https://jwt.io/introduction)
 
 ## Contributing
 
