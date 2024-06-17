@@ -5,16 +5,19 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "install-all": "cd react-native-front && yarn && yarn tailwind:build && cd .. && yarn",
     "start-node": "ts-node node-back/src/index.ts",
     "start-react-native": "cd react-native-front && yarn start",
     "react-native-tailwind": "cd react-native-front && yarn tailwind",
-    "migrate": "knex migrate:latest"
+    "migrate": "knex migrate:latest",
+    "dev": "concurrently \"yarn start-node\" \"yarn start-react-native\" \"yarn react-native-tailwind\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "concurrently": "^8.2.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "expo-secure-store": "^13.0.1",

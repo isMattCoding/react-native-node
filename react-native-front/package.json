@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "tailwind": "npx tailwindcss --watch -i ./input.css -o ./output.css",
+    "tailwind:build": "npx tailwindcss -i ./input.css -o ./output.css",
+    "tailwind:watch": "npx tailwindcss --watch -i ./input.css -o ./output.css",
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
